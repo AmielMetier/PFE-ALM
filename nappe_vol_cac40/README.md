@@ -73,11 +73,11 @@ flowchart LR
 
 $$C - P = e^{-rT}(F - K) \quad\Longrightarrow\quad F = K + e^{rT}(C - P)$$
 
-On fait la moyenne sur les 3 strikes communs les plus proches du spot, avec $r = 2{,}5\,\%$. Quand aucun strike n'est commun, on se rabat sur $F = S\,e^{(r-q)T}$ avec $q = 2{,}8\,\%$.
+On fait la moyenne sur les 3 strikes communs les plus proches du spot, avec $r$ = 2,5 %. Quand aucun strike n'est commun, on se rabat sur $F = S e^{(r-q)T}$ avec $q$ = 2,8 %.
 
 **3. Black-76 et volatilité implicite**
 
-$$C = e^{-rT}\big[F\,N(d_1) - K\,N(d_2)\big], \qquad d_1 = \frac{\ln(F/K) + \tfrac12\sigma^2T}{\sigma\sqrt{T}}, \quad d_2 = d_1 - \sigma\sqrt{T}$$
+$$C = e^{-rT}\big[F N(d_1) - K N(d_2)\big], \qquad d_1 = \frac{\ln(F/K) + \tfrac12\sigma^2T}{\sigma\sqrt{T}}, \quad d_2 = d_1 - \sigma\sqrt{T}$$
 
 Le $\sigma$ implicite est obtenu numériquement par la méthode de Brent (`scipy.optimize.brentq`) entre 1 % et 200 %. La solution est unique car le vega est positif.
 
@@ -97,8 +97,8 @@ Elle est calculée en glissant sur 20 jours, 60 jours et 1 an, puis sur une dur�
 | 15/01/2027 | 8 160 | parité call-put |
 | 19/02/2027 | 8 180 | parité call-put |
 | 19/03/2027 | 8 204 | parité call-put |
-| 16/04/2027 | 8 129 | secours : $S\,e^{(r-q)T}$ |
-| 18/06/2027 | 8 125 | secours : $S\,e^{(r-q)T}$ |
+| 16/04/2027 | 8 129 | secours : $S e^{(r-q)T}$ |
+| 18/06/2027 | 8 125 | secours : $S e^{(r-q)T}$ |
 
 ### Smile par maturité
 
@@ -125,7 +125,7 @@ Le skew est plus marqué sur les échéances courtes et s'aplatit avec la maturi
 | 16/04/2027 | 141 | 17,1 % | 12,7 % | +4,4 |
 | 18/06/2027 | 204 | 19,7 % | 12,9 % | +6,8 |
 
-### Pricer avec la vol historique ? (échéance mars 2027, $\sigma_{\text{hist}} = 13{,}1\,\%$)
+### Pricer avec la vol historique ? (échéance mars 2027, $\sigma_{\text{hist}}$ = 13,1 %)
 
 | Warrant | Prix marché | Vol implicite | Prix avec vol historique | Écart |
 | :--- | ---: | ---: | ---: | ---: |
