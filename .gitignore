@@ -1,6 +1,9 @@
 # Documentation confidentielle encadrant (ne pas publier sur GitHub)
 Documentation_PFE_v0.1/
 
+# Gros fichiers de données brutes (GitHub refuse > 100 Mo)
+data/raw/data.csv
+
 # Fichiers temporaires Office / Excel
 ~$*.xlsx
 ~$*.xlsm
