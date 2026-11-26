@@ -1,0 +1,7 @@
+numpy
+pandas
+scipy
+matplotlib
+lxml          # moteur utilisé par pandas.read_html
+yfinance      # historique du CAC 40 (optionnel si donnees/cac40_historique.csv est fourni)
+beautifulsoup4  # uniquement pour exploration/extraction_html_json.py
