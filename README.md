@@ -37,6 +37,7 @@ PFE-ALM/
 │   └── processed/         # Données nettoyées, courbes forward, volatilités
 ├── src/                   # Outil de calcul Excel / VBA (utilisable en autonomie par un tiers)
 ├── reunions/              # Supports de suivi hebdomadaire et comptes rendus (CR)
+├── nappe_vol_cac40/       # Exercice annexe : nappe de vol implicite du CAC 40 (warrants SG)
 ├── .gitignore
 └── README.md
 ```
