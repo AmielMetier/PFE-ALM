@@ -36,7 +36,3 @@ Webstat permet de recouper et compléter les données BCE avec des séries fran�
 - séries de taux de crédits et de dépôts des ménages en France, utiles pour choisir des strikes réalistes dans notre portefeuille bancaire fictif.
 
 Point de vigilance relevé : depuis 2024, la Banque de France ne republie plus directement les séries quotidiennes d'Euribor sur ses supports et renvoie vers la BCE. On s'appuiera donc en priorité sur l'ECB Data Portal pour les courbes et taux de marché, et sur Webstat en complément.
-
-## 4. Prochaine étape (semaine 4)
-
-Dès validation de la devise (EUR) au point de semaine 3, on téléchargera un premier extrait CSV de la courbe AAA BCE (sur la période 2014-2026, pas mensuel ou quotidien) dans `data/raw/` pour alimenter la maquette Excel / VBA.
