@@ -1,10 +1,5 @@
-"""
-Nettoyage des données brutes (BCE + Banque de France Webstat)
-pour produire des CSV légers et prêts à importer dans Excel / VBA.
+#Nettoyage des données brutes (BCE + Banque de France Webstat)
 
-Exécution depuis la racine du dépôt PFE-ALM :
-    python data/clean_data.py
-"""
 
 import csv
 import os
@@ -15,18 +10,12 @@ RAW_EURIBOR = os.path.join("data", "raw", "Webstat_Export_fr_ECOFI.INR.FR.FID_PA
 OUT_DIR = os.path.join("data", "processed")
 
 SVENSSON_TYPES = ["BETA0", "BETA1", "BETA2", "BETA3", "TAU1", "TAU2"]
-SPOT_MATURITIES = [
-    "SR_3M", "SR_6M", "SR_9M",
-    "SR_1Y", "SR_2Y", "SR_3Y", "SR_4Y", "SR_5Y",
-    "SR_6Y", "SR_7Y", "SR_8Y", "SR_9Y", "SR_10Y",
-    "SR_12Y", "SR_15Y", "SR_20Y"
-]
+SPOT_MATURITIES = ["SR_3M", "SR_6M", "SR_9M","SR_1Y", "SR_2Y", "SR_3Y", "SR_4Y", "SR_5Y","SR_6Y", "SR_7Y", "SR_8Y", "SR_9Y", "SR_10Y","SR_12Y", "SR_15Y", "SR_20Y"]
 WANTED_TYPES = set(SVENSSON_TYPES) | set(SPOT_MATURITIES)
 
 
 def clean_bce():
     print(f"[1/2] Lecture en streaming de {RAW_BCE} ...")
-    # Stockage par date -> {data_type: valeur}
     spot_by_date = defaultdict(dict)
     svensson_by_date = defaultdict(dict)
     seen_types = set()
@@ -75,7 +64,7 @@ def clean_bce():
 
     os.makedirs(OUT_DIR, exist_ok=True)
 
-    # 1. Export spot mensuel (en % tels que publiés par la BCE, ex: 2.50 = 2.50 %)
+    #Export spot mensuel (en % tels que publiés par la BCE, ex: 2.50 = 2.50 %)
     spot_dates = pick_month_ends(spot_by_date)
     out_spot = os.path.join(OUT_DIR, "bce_courbe_aaa_spot_mensuel.csv")
     with open(out_spot, "w", encoding="utf-8", newline="") as f:
@@ -89,7 +78,7 @@ def clean_bce():
             writer.writerow(row)
     print(f"    -> Écrit : {out_spot} ({len(spot_dates)} mois, de {spot_dates[0]} à {spot_dates[-1]})")
 
-    # 2. Export paramètres Svensson mensuel
+    #Export paramètres Svensson mensuel
     sv_dates = pick_month_ends(svensson_by_date)
     out_sv = os.path.join(OUT_DIR, "bce_svensson_params_mensuel.csv")
     with open(out_sv, "w", encoding="utf-8", newline="") as f:
@@ -103,7 +92,7 @@ def clean_bce():
             writer.writerow(row)
     print(f"    -> Écrit : {out_sv} ({len(sv_dates)} mois, de {sv_dates[0]} à {sv_dates[-1]})")
 
-    # 3. Export courbe au dernier arrêté disponible (prêt pour la maquette v0)
+    #Export courbe au dernier arrêté disponible (prêt pour la maquette v0)
     last_date = sorted(spot_by_date.keys())[-1]
     out_last = os.path.join(OUT_DIR, f"bce_courbe_aaa_arrete_{last_date}.csv")
     mat_months = {
@@ -137,7 +126,7 @@ def clean_euribor():
 
     rows.sort(key=lambda x: x[0])
 
-    # Quotidien propre
+    #Quotidien propre
     out_daily = os.path.join(OUT_DIR, "euribor_3m_quotidien.csv")
     with open(out_daily, "w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f, delimiter=";")
@@ -145,7 +134,7 @@ def clean_euribor():
         for d, r in rows:
             writer.writerow([d, f"{r:.4f}"])
 
-    # Fin de mois (aligné sur la fréquence mensuelle BCE)
+    #Fin de mois (aligné sur la fréquence mensuelle BCE)
     by_ym = {}
     for d, r in rows:
         by_ym[d[:7]] = (d, r)
